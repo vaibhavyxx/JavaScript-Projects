@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Palindrome Checker</title>
+        <style>
+            html{
+                font-size: 2em;
+                margin: 50px;
+            }
+            input, button{
+                padding:20px;
+                border-radius: 20px;
+                font-size: 1.5em;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Palindrome Checker</h1>
+        <p>Enter a word below</p>
+        <input type="text" id="word">
+        <button id="submit" onclick="getText()">Submit</button>
+        <div id="result"></div>
+    </body>
+    <script>
+        function getText(){
+            //use value to get values from input text
+            let phrase = document.getElementById('word').value;
+            let result = document.getElementById('result');
+            if (phrase == ""){
+                phrase= "Oops. This is empty."
+            }
+            reversed_phrase = reverseString(phrase);
+            solution = checkPalindrome(phrase, reversed_phrase);
+            text_value = output(solution);
+            result.innerText = text_value;
+        }
+
+        function output(solution){
+            phrase= "";
+            if(solution){
+                phrase = "Yes, it is palindrome";
+            }
+            else{
+                phrase = "No, it not a palindrome";
+            }
+            return phrase;
+        }
+        
+        function reverseString(phrase){
+            start_index =0;
+            reversed_phrase = [];
+            for(let i= phrase.length-1; i>=0; i--){
+                reversed_phrase[start_index] = phrase[i];
+                start_index++;
+            }
+            return reversed_phrase;
+        }
+        
+        function checkPalindrome(phrase, reversed_phrase){
+            is_matching  = false;
+           for(let i=0; i < phrase.length; i++){
+            if(phrase[i] != reversed_phrase[i]){
+                return false;
+            }
+           }
+           return true;
+        }
+    </script>
+</html>

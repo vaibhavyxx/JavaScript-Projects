@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Color Flipper</title>
+        <style>
+            h1{
+                font-size: 2.5em;
+            }
+            button{
+                font-size: 1.5em;
+                padding: 20px;
+                margin: 10px;
+                font-weight: bold;
+                border-radius: 20px;
+            }
+            #blue{
+                color:white;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Color Flipper</h1>
+        <button id="red" style="background-color:Red">Red</button>
+        <button id="blue" style="background-color:blue">Blue</button>
+        <button id="yellow" style="background-color:yellow">Yellow</button>
+        <button id="random">Random</button>
+        <button id="reset">Reset</button>
+        
+    <script>
+        //To add event listener or interactions use const
+        const body = document.getElementsByTagName("body")[0]
+        
+        const red_button = document.getElementById("red")
+        const blue_button = document.getElementById("blue")
+        const green_button = document.getElementById("yellow")
+        const rand_buttoon = document.getElementById("random")
+        const reset_button = document.getElementById("reset")
+
+        //just use arrow functions to change background color
+        red_button.addEventListener('click', () =>setColor('Red'));
+        blue_button.addEventListener('click',() => setColor('Blue'));
+        green_button.addEventListener('click',() => setColor('Yellow'));
+        rand_buttoon.addEventListener('click',()=> randColor());
+        reset_button.addEventListener('click', ()=> setColor('White'));
+
+        function setColor(name){
+            body.style.background = name;
+        }
+        function randColor(){
+            r = Math.floor(Math.random()*256);
+            g = Math.floor(Math.random()*256);
+            b = Math.floor(Math.random()*256);
+            body.style.background = `rgb(${r}, ${g}, ${b})`;
+
+        }
+    </script>
+    </body>
+</html>
