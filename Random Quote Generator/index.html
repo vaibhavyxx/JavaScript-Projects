@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Quote Generator</title>
+    <style>
+        html {
+            font-size: 2em;
+            margin: 50px;
+        }
+        input, button {
+            padding: 20px;
+            border-radius: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Quote Generator</h1>
+    <p>Click the button to get quotes.</p>
+    <button onclick="randomQuote()">Click</button>
+    <div id="quote"></div>
+</body>
+<script>
+    const quotes = [
+        "I have a dog", 
+        "My name is Shawn", 
+        "I love you", 
+        "No, you cannot have my pizza", 
+        "Screw you",
+        "My eyes",
+        "I hate you",
+        "I want it, I got it"
+    ];
+    
+    const used_indexes = new Set();     
+    const quote_space = document.getElementById('quote');
+    
+    function randomQuote() {
+        if (used_indexes.size === quotes.length) {
+           used_indexes.clear()
+            return;
+        }
+        
+        let rand_index;
+        do {
+            rand_index = Math.floor(Math.random() * quotes.length);
+        } while (used_indexes.has(rand_index));
+        
+        const quote = quotes[rand_index];
+        quote_space.innerHTML = quote;
+        used_indexes.add(rand_index);
+    }
+</script>
+</html>
