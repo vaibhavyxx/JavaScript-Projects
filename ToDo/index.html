@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>To Do List</title>
+        <style>
+            html{
+                font-family: 'Verdana';
+                font-size: 2em;
+                margin: 50px;
+            }
+            input, button{
+                padding:20px;
+                border-radius: 20px;
+                font-size: 1.5em;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>ToDo List</h1>
+        <h2>Items</h2>
+        <div id="items"></div>
+        <input type="text" id="text" placeholder="Add an item">
+        <button id="add" onclick="addItem()">Add</button>
+    </body>
+    <script>
+        let items=[]
+        const itemsDiv = document.getElementById("items");
+        const input = document.getElementById('text');
+        const storageKey = "items";
+
+        function loadItems(){
+            const oldItems = localStorage.getItem(storageKey);
+            if(oldItems) items = JSON.parse(oldItems);
+            renderItems()
+        }
+
+        function renderItems(){
+            itemsDiv.innerHTML = null;
+            for(const[idx, item] of Object.entries(items)){
+                const container = document.createElement('div');
+                container.style.marginBottom= '10px';
+
+                const pTag = document.createElement('p');
+                pTag.style.display = 'inline'
+                pTag.style.marginInline = '0px 50px'
+                pTag.textContent = item;
+
+                const buttonTag = document.createElement('button');
+                buttonTag.textContent = "Remove";
+                buttonTag.onclick = () =>removeItem(idx);   //without arrow functions it will call it regardless
+
+                itemsDiv.appendChild(container);
+                container.appendChild(pTag);
+                container.appendChild(buttonTag);
+            }
+        }
+        renderItems()
+
+        function saveItems(){
+            const stringItems = JSON.stringify(items);
+            localStorage.setItem(storageKey, stringItems);
+        }
+
+        function addItem(){
+            const task = document.getElementById('text').value;
+            if(!task){
+                alert("You cannot add an emtpy item");
+                return;
+            }
+            items.push(task);
+            renderItems();
+            saveItems();
+            input.value = "";
+        }
+
+        function removeItem(idx){
+            items.splice(idx, 1);
+            renderItems();
+            saveItems();
+        }
+
+        document.addEventListener("DOMContentLoaded", loadItems);
+    </script>
+</html>
